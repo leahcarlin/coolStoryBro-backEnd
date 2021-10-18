@@ -129,7 +129,7 @@ if (process.env.DELAY) {
 
 //register routers under root URLs
 app.use("/", authRouter);
-app.use("/space", spaceRouter);
+app.use("/spaces", spaceRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
