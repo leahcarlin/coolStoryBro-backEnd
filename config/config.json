@@ -1,6 +1,6 @@
 {
   "development": {
-    "url": "postgres://getnlsbd:o9q5_4-0f76uiutDqVD0dgQpZhDzlslV@hattie.db.elephantsql.com/getnlsbd",
+    "url": "postgres://ouirgzxb:iFCX7R0Nb9id7xRwBHpbqvSvLIn7aeSu@hattie.db.elephantsql.com/ouirgzxb",
     "dialect": "postgres",
     "operatorsAliases": "0"
   },

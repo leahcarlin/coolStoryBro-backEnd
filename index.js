@@ -2,10 +2,12 @@ const express = require("express");
 const loggerMiddleWare = require("morgan");
 const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
-const authRouter = require("./routers/auth");
-const authMiddleWare = require("./auth/middleware");
-
 const app = express();
+
+//import router
+const spaceRouter = require("./routers/space");
+const authRouter = require("./routers/auth");
+
 /**
  * Middlewares: DO NOT REGISTER ANY ROUTERS BEFORE THE MIDDLEWARES
  *
@@ -30,6 +32,8 @@ const app = express();
  *
  */
 
+//middleware
+const authMiddleWare = require("./auth/middleware");
 app.use(corsMiddleWare());
 
 /**
@@ -92,38 +96,40 @@ if (process.env.DELAY) {
  * DEFINE YOUR ROUTES AFTER THIS MESSAGE (now that middlewares are configured)
  */
 
-// GET endpoint for testing purposes, can be removed
-app.get("/", (req, res) => {
-  res.send("Hi from express");
-});
+// // GET endpoint for testing purposes, can be removed
+// app.get("/", (req, res) => {
+//   res.send("Hi from express");
+// });
 
-// POST endpoint for testing purposes, can be removed
-app.post("/echo", (req, res) => {
-  res.json({
-    youPosted: {
-      ...req.body,
-    },
-  });
-});
+// // POST endpoint for testing purposes, can be removed
+// app.post("/echo", (req, res) => {
+//   res.json({
+//     youPosted: {
+//       ...req.body,
+//     },
+//   });
+// });
 
-// POST endpoint which requires a token for testing purposes, can be removed
-app.post("/authorized_post_request", authMiddleWare, (req, res) => {
-  // accessing user that was added to req by the auth middleware
-  const user = req.user;
-  // don't send back the password hash
-  delete user.dataValues["password"];
+// // POST endpoint which requires a token for testing purposes, can be removed
+// app.post("/authorized_post_request", authMiddleWare, (req, res) => {
+//   // accessing user that was added to req by the auth middleware
+//   const user = req.user;
+//   // don't send back the password hash
+//   delete user.dataValues["password"];
 
-  res.json({
-    youPosted: {
-      ...req.body,
-    },
-    userFoundWithToken: {
-      ...user.dataValues,
-    },
-  });
-});
+//   res.json({
+//     youPosted: {
+//       ...req.body,
+//     },
+//     userFoundWithToken: {
+//       ...user.dataValues,
+//     },
+//   });
+// });
 
+//register routers under root URLs
 app.use("/", authRouter);
+app.use("/space", spaceRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
