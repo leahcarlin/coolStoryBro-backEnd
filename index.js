@@ -7,7 +7,7 @@ const app = express();
 //import router
 const spaceRouter = require("./routers/space");
 const authRouter = require("./routers/auth");
-
+const storyRouter = require("./routers/story");
 /**
  * Middlewares: DO NOT REGISTER ANY ROUTERS BEFORE THE MIDDLEWARES
  *
@@ -130,6 +130,7 @@ if (process.env.DELAY) {
 //register routers under root URLs
 app.use("/", authRouter);
 app.use("/spaces", spaceRouter);
+app.use("/story", storyRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
