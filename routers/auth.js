@@ -97,4 +97,21 @@ router.get("/me", authMiddleware, async (req, res) => {
     .send({ ...req.user.dataValues, space: { ...space.dataValues } });
 });
 
+// DELETE a story
+router.delete("/stories/:storyId", async (req, res, next) => {
+  try {
+    const { storyId } = req.params;
+    const story = await Story.findByPk(storyId);
+    console.log(story);
+    if (!story) {
+      res.status(404).send("No story found");
+    } else {
+      await story.destroy();
+      res.send({ message: "Story deleted successfully" });
+    }
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;
